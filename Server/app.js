@@ -2,8 +2,8 @@ require('./config/config');
 
 const express = require('express');
 // Parse a SPARQL query to a JSON object
-sparql = require('sparql');
-var SparqlParser = require('sparqljs').Parser;
+// sparql = require('sparql');
+// var SparqlParser = require('sparqljs').Parser;
 const app = express();
 // let dbMusica = require('./DB/musica.ttl');
 
@@ -19,7 +19,7 @@ app.get('/musica', function (req, res) {
 });
 
 
-client = new sparql.Client('http://localhost:2020/vocab/resource/cantante_apodo>');
+// client = new sparql.Client('http://localhost:2020/vocab/resource/cantante_apodo>');
 
 // let q = `
 //     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
