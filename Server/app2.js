@@ -10,13 +10,10 @@ app.get('/musica', function (req, res) {
     res.json('get Usuario LOCAL!!!');
 });
 
-// let dbMusica = require('./DB/musica.ttl');
-// console.log(dbMusica);
 
 client = new sparql.Client('http://dbpedia.org/sparql');
 
-let query = () => {
-    let q = `
+let q = `
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     PREFIX owl: <http://www.w3.org/2002/07/owl#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -27,25 +24,25 @@ let query = () => {
     PREFIX dbo:	<http://dbpedia.org/ontology/>
     PREFIX dbp:	<http://dbpedia.org/property/>
     PREFIX dbr:	<http://dbpedia.org/resource/>
-    SELECT DISTINCT ?class
-WHERE { [] a ?class }
-ORDER BY ?class
+    PREFIX musica:	<http://localhost:2020/vocab/resource/cantante_apodo>
+    SELECT DISTINCT * WHERE {
+        ?a rdfs:label	?b .
+        FILTER REGEX(?b, "cantante #12345", "i") .
+       }
+       LIMIT 10
     `;
 
-    client.query(q, (err, res) => {
-        console.log('Correcto');
-        console.log(res);
-        // console.log(res.results.bindings[0]);
-        res.results.bindings.forEach(element => {
-            console.log(element);
-        });
-    }, err => {
-        console.log('Error');
-        console.log(err);
+client.query(q, (err, res) => {
+    console.log('Correcto');
+    console.log(res);
+    // console.log(res.results.bindings[0]);
+    res.results.bindings.forEach(element => {
+        console.log(element);
     });
-};
-
-query();
+}, err => {
+    console.log('Error');
+    console.log(err);
+});
 
 
 
